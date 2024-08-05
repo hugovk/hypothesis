@@ -71,18 +71,10 @@ from hypothesis.internal.intervalsets import IntervalSet
 if TYPE_CHECKING:
     from typing import TypeAlias
 
-    from typing_extensions import dataclass_transform
-
     from hypothesis.strategies import SearchStrategy
     from hypothesis.strategies._internal.strategies import Ex
 else:
     TypeAlias = object
-
-    def dataclass_transform():
-        def wrapper(tp):
-            return tp
-
-        return wrapper
 
 
 TOP_LABEL = calc_label_from_name("top")
@@ -154,7 +146,6 @@ class Status(IntEnum):
         return f"Status.{self.name}"
 
 
-@dataclass_transform()
 @attr.s(frozen=True, slots=True, auto_attribs=True)
 class StructuralCoverageTag:
     label: int
@@ -680,7 +671,6 @@ class Examples:
         return Example(self, i)
 
 
-@dataclass_transform()
 @attr.s(slots=True, frozen=True)
 class Block:
     """Blocks track the flat list of lowest-level draws from the byte stream,
@@ -1135,7 +1125,6 @@ def ir_kwargs_equal(ir_type, kwargs1, kwargs2):
     return ir_kwargs_key(ir_type, kwargs1) == ir_kwargs_key(ir_type, kwargs2)
 
 
-@dataclass_transform()
 @attr.s(slots=True)
 class ConjectureResult:
     """Result class storing the parts of ConjectureData that we
